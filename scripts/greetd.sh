@@ -5,11 +5,9 @@ set -e
 
 echo "Creating greetd configuration..."
 
-# Create the greetd config directory if it doesn't exist
-sudo mkdir -p /etc/greetd
+mkdir -p /etc/greetd
 
-# Create the config file
-sudo tee /etc/greetd/config.toml > /dev/null << 'EOF'
+tee /etc/greetd/config.toml > /dev/null << 'EOF'
 # The VTGreetd will use.
 # Default: 7
 vt = 1
@@ -29,7 +27,17 @@ vt = 1
 command = "tuigreet --cmd sway"
 EOF
 
-echo "Enabling greetd service..."
-sudo systemctl enable greetd
+if [ ! -f /etc/greetd/config.toml ]; then
+    echo "Error: Failed to create greetd config file"
+    exit 1
+fi
 
-echo "greetd setup complete!"
+echo "Enabling greetd service..."
+systemctl enable greetd
+
+if ! systemctl is-enabled greetd > /dev/null 2>&1; then
+    echo "Error: Failed to enable greetd service"
+    exit 1
+fi
+
+echo "✓ greetd.sh complete"

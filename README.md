@@ -1,43 +1,106 @@
-# System Configuration for Reform Device
+# System Configuration for MNT Reform
 
-This repository contains scripts and configuration for setting up a Reform device with a minimal Debian install and custom Wayland/Sway environment.
+This repository contains scripts and configuration for setting up a MNT Pocket Reform device with a minimal Debian install and a self-contained Wayland/Sway environment.
+
+**Philosophy:** System-level stuff here, user customizations in your dotfiles.
+
+## Prerequisites
+
+- MNT Pocket Reform (or similar device)
+- Fresh minimal Debian install
+- Network access (USB-C tether to phone recommended for initial setup)
+
+## Quick Start
+
+```bash
+# Get network via USB-C tether to phone, or configure wifi manually
+
+# Clone this repo
+git clone https://github.com/samsc/sysconf
+cd sysconf
+
+# Run complete setup
+sudo make all
+
+# Reboot and log in via tuigreet
+sudo reboot
+```
+
+## What Gets Installed
+
+**Base System:**
+- Hostname set to 'narsil'
+- All packages from packages.txt (Sway, waybar, greetd, etc.)
+
+**Display Manager:**
+- greetd with tuigreet (TUI login)
+
+**Window Manager:**
+- Sway with minimal but functional configuration
+- Waybar with: battery, WiFi, clock, system tray, power menu
+- Brightness/volume keys work out of the box
+- Screenshots (grim + slurp)
+
+**No External Dependencies:**
+- No reform-tools required
+- No flatpak
+- No external repos
+
+## Post-Setup (Optional)
+
+After the base system is working, you can layer your personal dotfiles on top:
+
+```bash
+# Clone your dotfiles
+git clone https://github.com/yourusername/dotfiles ~/dotfiles
+cd ~/dotfiles
+
+# Apply your personal Sway/waybar config
+stow sway waybar
+```
+
+Your dotfiles will override the base configs installed by sysconf.
+
+## Individual Components
+
+Run individual components if needed:
+
+```bash
+sudo make hostname    # Set hostname to 'narsil'
+sudo make install     # Install all packages
+sudo make greetd      # Set up greetd with tuigreet
+sudo make sway        # Copy base Sway/waybar configs
+sudo make mount UUID=<uuid>  # Mount secondary drive
+```
+
+## Drive Mounting
+
+If you have a secondary drive:
+
+```bash
+blkid                                    # Find your UUID
+sudo make mount UUID=<your-uuid>
+```
+
+## Troubleshooting
+
+**No network after install:** The installer needs network to clone this repo. Use USB-C tether to phone, or manually configure wifi first.
+
+**Reform-specific features missing:** The reform-tray is intentionally excluded. Battery and network are shown in waybar instead. Use the power menu in waybar (⏻) for shutdown/reboot/suspend.
 
 ## Structure
 
-- `packages.txt` - List of all packages to install
-- `scripts/install.sh` - Installs all packages from the list
-- `scripts/greetd.sh` - Sets up greetd with tuigreet login manager
-- `scripts/mount.sh` - Helps configure drive mounting for the secondary drive
-- `Makefile` - Orchestrates the entire setup process
-
-## Usage
-
-After a fresh minimal Debian install:
-
-```bash
-# Run complete setup
-make all
-
-# Or run individual components
-make install    # Install all packages
-make greetd     # Set up greetd
-make mount      # Configure drive mounting
 ```
-
-## Components
-
-### Package Installation
-All packages are listed in `packages.txt` and installed via `xargs` for clean organization.
-
-### Display Manager
-Uses greetd with tuigreet for a minimal TUI login manager that launches Sway.
-
-### Drive Mounting
-Automatically sets up mount point and helps configure `/etc/fstab` for the secondary "erebor" drive.
-
-## Post-Setup
-
-After running the setup:
-1. Configure your Sway settings (`~/.config/sway/config`)
-2. Set up Waybar configuration if using it
-3. Customize any other user-specific settings
+packages.txt              - Core packages list
+scripts/
+  install.sh              - Package installation
+  greetd.sh               - Display manager setup
+  sway.sh                 - Copy base Sway configs
+  hostname.sh             - Set system hostname
+  mount.sh                - Configure drive mounting
+configs/
+  sway/config             - Base Sway configuration
+  waybar/config           - Waybar configuration (battery, network, power)
+  waybar/style.css        - Waybar styling
+  waybar/power-menu.txt   - Power menu options
+```

@@ -1,0 +1,15 @@
+* {
+    border: none;
+    font-family: "Inter", Icons, sans-serif;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #000000;
+    color: #ffffff;
+}
+
+tooltip {
+    background: #000000;
+    border: 1px solid #ffffff;
+}

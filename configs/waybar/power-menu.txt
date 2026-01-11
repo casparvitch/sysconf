@@ -1,0 +1,4 @@
+Shutdown:systemctl poweroff
+Reboot:systemctl reboot
+Suspend:systemctl suspend
+Lock:swaylock

@@ -3,41 +3,42 @@
 
 set -e
 
+MOUNT_POINT="/mnt/emmc_data"
+FSTAB="/etc/fstab"
+
 echo "Setting up drive mounting..."
 
-# Create mount point if it doesn't exist
-sudo mkdir -p /mnt/emmc_data
+mkdir -p "$MOUNT_POINT"
 
-echo "To complete drive setup, you'll need to:"
-echo "1. Find the UUID of your drive:"
-echo "   sudo blkid"
-echo ""
-echo "2. Edit /etc/fstab and add:"
-echo "   UUID=<YOUR_UUID_HERE> /mnt/emmc_data ext4 defaults,nofail 0 2"
-echo ""
-echo "3. Verify the mount works:"
-echo "   df -h /mnt/emmc_data"
-echo ""
-echo "Would you like me to help you find the UUID now? (y/n)"
-read -r response
-
-if [ "$response" = "y" ] || [ "$response" = "Y" ]; then
-    echo "Available block devices:"
-    sudo blkid
-    
+if [ -z "$1" ]; then
+    echo "Usage: $0 <UUID>"
     echo ""
-    echo "Enter the UUID for your erebor drive:"
-    read -r uuid
-    
-    if [ -n "$uuid" ]; then
-        echo "Adding entry to /etc/fstab..."
-        echo "UUID=$uuid /mnt/emmc_data ext4 defaults,nofail 0 2" | sudo tee -a /etc/fstab
-        
-        echo "Attempting to mount..."
-        sudo mount /mnt/emmc_data
-        echo "Mount complete! Verifying:"
-        df -h /mnt/emmc_data
-    fi
+    echo "Available block devices:"
+    blkid
+    echo ""
+    echo "To mount a drive, run:"
+    echo "  sudo $0 <UUID>"
+    echo ""
+    echo "Example:"
+    echo "  sudo $0 12345678-1234-1234-1234-123456789012"
+    exit 1
 fi
 
-echo "Drive mounting setup complete!"
+UUID="$1"
+
+if grep -q "UUID=$UUID" "$FSTAB"; then
+    echo "UUID $UUID already configured in /etc/fstab"
+else
+    echo "Adding entry to /etc/fstab..."
+    echo "UUID=$UUID $MOUNT_POINT ext4 defaults,nofail 0 2" >> "$FSTAB"
+    echo "Entry added successfully"
+fi
+
+echo "Attempting to mount..."
+if mount "$MOUNT_POINT"; then
+    echo "Mount successful! Verifying:"
+    df -h "$MOUNT_POINT"
+else
+    echo "Warning: Mount failed. Check blkid output and UUID."
+    exit 1
+fi
