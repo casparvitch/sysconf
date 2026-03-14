@@ -10,6 +10,16 @@ This repository contains scripts and configuration for setting up a MNT Pocket R
 - Fresh minimal Debian install
 - Network access (USB-C tether to phone recommended for initial setup)
 
+## User Setup
+
+If your user isn't in the sudo group (common after a debootstrap install):
+
+```bash
+# Replace 'yourusername' with your actual username
+sudo usermod -aG sudo yourusername
+# Log out and back in for group change to take effect
+```
+
 ## Quick Start
 
 ```bash
