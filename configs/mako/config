@@ -1,0 +1,15 @@
+background-color=#000000
+text-color=#ffffff
+border-color=#000000
+progress-color=#ffffff
+layer=overlay
+width=400
+height=110
+padding=8
+margin=5
+border-size=0
+text-size=10
+fade-in=0
+fade-out=0
+hide-timeout=10
+default-timeout=5000

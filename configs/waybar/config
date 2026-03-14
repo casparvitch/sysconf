@@ -4,12 +4,16 @@
     "height": 32, // Waybar height (to be removed for auto height)
     "modules-left": ["custom/run", "wlr/taskbar", "sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["tray", "network", "battery", "clock", "custom/power"],
+    "modules-right": ["custom/clipboard", "tray", "network", "battery", "clock", "custom/power"],
     "custom/run": {
         "format": "M",
         "exec": "printf 'M\nApplications\n'",
         "interval": 3600,
         "on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
+    },
+    "custom/clipboard": {
+        "format": "📋",
+        "on-click": "clipman list | wofi --dmenu | clipman select"
     },
     "sway/window": {
     },
