@@ -3,22 +3,29 @@
 
 set -e
 
-echo "Creating greetd configuration..."
+echo "Setting up greetd..."
 
+# Create greetd user if it doesn't exist (for the daemon)
+if ! id "greetd" >/dev/null 2>&1; then
+    echo "Creating greetd user..."
+    useradd -r -s /usr/sbin/nologin -c "greetd user" -d /var/lib/greetd greetd
+fi
+
+# Create greeter user if it doesn't exist (for the session)
+if ! id "greeter" >/dev/null 2>&1; then
+    echo "Creating greeter user..."
+    useradd -r -s /usr/sbin/nologin -c "Greeter user" -d /var/lib/greetd greeter
+fi
+
+# Create config directory
 mkdir -p /etc/greetd
 
-tee /etc/greetd/config.toml > /dev/null << 'EOF'
+# Write greetd config
+cat > /etc/greetd/config.toml << 'EOF'
 [terminal]
-# The VT greetd will use
 vt = 1
 
 [default_session]
-# The user to autologin for.
-# Default: null
-# user = "your_username" # Uncomment and replace with your username for autologin
-
-# The command to execute for the default session.
-# This tells greetd to launch tuigreet.
 command = "tuigreet --cmd sway"
 EOF
 
