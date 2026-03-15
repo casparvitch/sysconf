@@ -10,6 +10,38 @@ This repository contains scripts and configuration for setting up a MNT Pocket R
 - Fresh minimal Debian install
 - Network access (USB-C tether to phone recommended for initial setup)
 
+## WiFi Setup (Pocket Reform)
+
+The Pocket Reform's WiFi requires firmware and a DKMS driver that are in backports and non-free-firmware repos:
+
+```bash
+# 1. Add required repos (trixie-backports and non-free-firmware)
+echo "deb http://deb.debian.org/debian trixie-backports main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list.d/backports.list
+
+# Update existing repos to include non-free-firmware if not present
+sudo sed -i 's/main$/main contrib non-free non-free-firmware/' /etc/apt/sources.list
+
+sudo apt update
+
+# 2. Install driver and firmware
+sudo apt install -t trixie-backports ezurio-qcacld-2.0-dkms ezurio-qca-firmware
+
+# 3. Handle Secure Boot (if enabled)
+# You may see a black/blank popup during install - this is a broken debconf
+# dialog asking for MOK enrollment. If so, press Tab then Enter blindly,
+# or run: sudo DEBIAN_FRONTEND=readline dpkg --configure -a
+
+# 4. Reboot
+sudo reboot
+
+# After reboot, WiFi should appear as wlan0
+ip link show
+```
+
+**Note:** The black popup during install is a known issue with the debconf dialog when Secure Boot is enabled. It's asking you to set a password for Machine Owner Key (MOK) enrollment. You can either:
+- Disable Secure Boot in firmware (easiest)
+- Complete MOK enrollment (enter password in the broken dialog, reboot, and follow the blue MOK enrollment screen)
+
 ## User Setup
 
 If your user isn't in the sudo group (common after a debootstrap install):
@@ -35,6 +67,8 @@ sudo make all
 # Reboot and log in via tuigreet
 sudo reboot
 ```
+
+**Pocket Reform WiFi:** If WiFi doesn't work after reboot, see the [WiFi Setup](#wifi-setup-pocket-reform) section above.
 
 ## What Gets Installed
 
