@@ -21,6 +21,8 @@ tooltip {
 #network,
 #bluetooth,
 #battery,
-#tray {
+#tray,
+#custom-clipboard,
+#custom-power {
     padding: 0 8px;
 }
