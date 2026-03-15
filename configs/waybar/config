@@ -1,7 +1,5 @@
 {
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 32, // Waybar height (to be removed for auto height)
+    "height": 32,
     "modules-left": ["custom/run", "wlr/taskbar", "sway/workspaces"],
     "modules-center": [],
     "modules-right": ["custom/clipboard", "tray", "bluetooth", "network", "battery", "clock", "custom/power"],
@@ -34,7 +32,6 @@
         "tooltip": false
     },
     "pulseaudio": {
-        // "scroll-step": 1,
         "format": "Vol {volume}%",
         "format-bluetooth": " {volume}%",
         "format-bluetooth-muted": " Silent",
@@ -43,12 +40,12 @@
         "format-source-muted": "Silent",
         "on-click": "pavucontrol"
     },
-	"battery": {
+    "battery": {
         "format": "<span face='FontAwesome'>{icon}</span> {capacity}%",
         "format-charging": "<span face='FontAwesome'></span> {capacity}%",
         "format-plugged": "<span face='FontAwesome'></span> {capacity}%",
         "format-icons": ["", "", "", "", ""]
-	},
+    },
     "network": {
         "format-wifi": "📶",
         "format-ethernet": "🌐",

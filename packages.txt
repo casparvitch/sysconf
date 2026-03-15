@@ -1,7 +1,7 @@
 blueman
-clipman
 brightnessctl
 build-essential
+clipman
 curl
 evince
 firefox-esr
