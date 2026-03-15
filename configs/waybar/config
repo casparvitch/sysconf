@@ -4,7 +4,7 @@
     "height": 32, // Waybar height (to be removed for auto height)
     "modules-left": ["custom/run", "wlr/taskbar", "sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["custom/clipboard", "tray", "network", "battery", "clock", "custom/power"],
+    "modules-right": ["custom/clipboard", "tray", "bluetooth", "network", "battery", "clock", "custom/power"],
     "custom/run": {
         "format": "M",
         "exec": "printf 'M\nApplications\n'",
@@ -50,10 +50,36 @@
         "format-icons": ["", "", "", "", ""]
 	},
     "network": {
-        "format-wifi": "{essid} ({signalStrength}%)",
-        "format-ethernet": "{ipaddr}",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-disconnected": "No connection"
+        "format-wifi": "{icon}",
+        "format-ethernet": "{icon}",
+        "format-disconnected": "{icon}",
+        "format-icons": {
+            "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+            "ethernet": "󰈀",
+            "disconnected": "󰤭"
+        },
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ipaddr}",
+        "tooltip-format-disconnected": "No connection",
+        "on-click": "nm-connection-editor"
+    },
+    "bluetooth": {
+        "format": "{icon}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-on": "󰂯",
+        "format-connected": "󰂱",
+        "format-connected-battery": "󰂱",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋋",
+            "phone": "󰏲",
+            "default": ["󰥇", "󰤾", "󰤿"]
+        },
+        "tooltip-format": "Bluetooth",
+        "tooltip-format-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "blueman-manager"
     },
     "custom/power": {
         "format": "⏻",

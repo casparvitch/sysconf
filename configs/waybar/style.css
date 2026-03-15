@@ -17,3 +17,10 @@ tooltip {
 #clock {
     padding: 0 16px;
 }
+
+#network,
+#bluetooth,
+#battery,
+#tray {
+    padding: 0 8px;
+}
