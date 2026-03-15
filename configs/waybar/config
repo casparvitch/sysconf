@@ -12,7 +12,7 @@
         "on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
     },
     "custom/clipboard": {
-        "format": "📋",
+        "format": "clip",
         "on-click": "clipman list | wofi --dmenu | clipman select"
     },
     "sway/window": {
@@ -57,6 +57,6 @@
     },
     "custom/power": {
         "format": "⏻",
-        "on-click": "wofi --show drun -p 'Power' --allow-markup --define dmenu-print_line_num=true < ~/.config/waybar/power-menu.txt"
+        "on-click": "cat ~/.config/waybar/power-menu.txt | wofi --dmenu -p 'Power' | cut -d: -f2 | xargs -r swaymsg exec --"
     }
 }
