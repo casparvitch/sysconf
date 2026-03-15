@@ -6,6 +6,7 @@ curl
 evince
 firefox-esr
 firmware-misc-nonfree
+fonts-noto-color-emoji
 foot
 git
 gnome-disk-utility

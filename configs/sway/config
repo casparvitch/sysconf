@@ -280,11 +280,11 @@ exec nm-applet --indicator
 exec wl-paste --type text --watch clipman store
 exec wl-paste --type image --watch clipman store
 
-# start bluetooth applet
-exec blueman-applet
+# bluetooth is handled by waybar module (blueman-manager on click)
+# exec blueman-applet
 
-# start volume applet
-exec pasystray
+# volume is handled by waybar
+# exec pasystray
 
 # power menu - runs via waybar custom module
 
