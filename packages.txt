@@ -36,7 +36,6 @@ wayland-protocols
 wget
 wireplumber
 wl-clipboard
-libwlroots10
 wofi
 wpasupplicant
 xwayland
