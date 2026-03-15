@@ -8,13 +8,8 @@ echo "Creating greetd configuration..."
 mkdir -p /etc/greetd
 
 tee /etc/greetd/config.toml > /dev/null << 'EOF'
-# The VTGreetd will use.
-# Default: 7
-vt = 1
-
 [terminal]
-# The VTGreetd will use.
-# Default: 7
+# The VT greetd will use
 vt = 1
 
 [default_session]
