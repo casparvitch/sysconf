@@ -12,7 +12,7 @@
         "on-click": "pkill -x wofi || wofi --show drun -p Search -a -i -I -W 66% -H 66% -s $HOME/.config/wofi.css"
     },
     "custom/clipboard": {
-        "format": "clip",
+        "format": "📋",
         "on-click": "clipman list | wofi --dmenu | clipman select"
     },
     "sway/window": {
@@ -56,7 +56,7 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ipaddr}",
         "tooltip-format-disconnected": "No connection",
-        "on-click": "nm-connection-editor"
+        "on-click": "foot -e nmtui"
     },
     "bluetooth": {
         "format": "{icon}",
