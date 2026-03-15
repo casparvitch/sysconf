@@ -50,14 +50,9 @@
         "format-icons": ["", "", "", "", ""]
 	},
     "network": {
-        "format-wifi": "{icon}",
-        "format-ethernet": "{icon}",
-        "format-disconnected": "{icon}",
-        "format-icons": {
-            "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-            "ethernet": "󰈀",
-            "disconnected": "󰤭"
-        },
+        "format-wifi": "📶",
+        "format-ethernet": "🌐",
+        "format-disconnected": "⚠",
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ipaddr}",
         "tooltip-format-disconnected": "No connection",
@@ -65,17 +60,11 @@
     },
     "bluetooth": {
         "format": "{icon}",
-        "format-disabled": "󰂲",
-        "format-off": "󰂲",
-        "format-on": "󰂯",
-        "format-connected": "󰂱",
-        "format-connected-battery": "󰂱",
-        "format-icons": {
-            "headphone": "󰋋",
-            "headset": "󰋋",
-            "phone": "󰏲",
-            "default": ["󰥇", "󰤾", "󰤿"]
-        },
+        "format-disabled": "🔴",
+        "format-off": "⚫",
+        "format-on": "🔵",
+        "format-connected": "🔵",
+        "format-connected-battery": "🔋",
         "tooltip-format": "Bluetooth",
         "tooltip-format-connected": "{device_alias}",
         "tooltip-format-enumerate-connected": "{device_alias}",
