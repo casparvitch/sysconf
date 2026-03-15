@@ -18,8 +18,9 @@ chown "$USERNAME:$USERNAME" "$SWAY_CONFIG_DIR" "$WAYBAR_CONFIG_DIR" "$MAKO_CONFI
 
 echo "Copying Sway config..."
 cp "$CONFIGS_DIR/sway/config" "$SWAY_CONFIG_DIR/config"
-chown "$USERNAME:$USERNAME" "$SWAY_CONFIG_DIR/config"
-echo "Copied sway config to $SWAY_CONFIG_DIR/config"
+cp "$CONFIGS_DIR/sway/wp.jpg" "$SWAY_CONFIG_DIR/wp.jpg"
+chown "$USERNAME:$USERNAME" "$SWAY_CONFIG_DIR/config" "$SWAY_CONFIG_DIR/wp.jpg"
+echo "Copied sway config and wallpaper to $SWAY_CONFIG_DIR"
 
 echo "Copying Waybar config..."
 cp "$CONFIGS_DIR/waybar/config" "$WAYBAR_CONFIG_DIR/config"

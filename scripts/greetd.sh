@@ -20,16 +20,26 @@ fi
 # Create config directory
 mkdir -p /etc/greetd
 
-# Write greetd config
+# Write greetd config - use VT2, keep VT1 for boot logs
+# Requires kernel param: console=tty1
+# See: https://wiki.archlinux.org/title/Greetd
 cat > /etc/greetd/config.toml << 'EOF'
 [terminal]
-vt = "next"
-switch = true
+vt = 2
 
 [default_session]
 command = "tuigreet --time --cmd sway"
 user = "greeter"
 EOF
+
+# Disable getty on tty2 so it doesn't fight with greetd
+echo "Disabling getty@tty2.service..."
+systemctl mask getty@tty2.service
+
+# Check for kernel param (warn if missing)
+if ! grep -q "console=tty1" /proc/cmdline 2>/dev/null; then
+    echo "WARNING: Add 'console=tty1' to kernel parameters to keep boot logs on VT1"
+    echo "Edit /etc/default/grub: GRUB_CMDLINE_LINUX_DEFAULT="... console=tty1""
 
 # Add greeter user to required groups for graphics/input access
 usermod -a -G video greeter 2>/dev/null || true
