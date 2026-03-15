@@ -26,8 +26,14 @@ cat > /etc/greetd/config.toml << 'EOF'
 vt = 1
 
 [default_session]
-command = "tuigreet --cmd sway"
+command = "tuigreet --time --cmd sway"
+user = "greeter"
 EOF
+
+# Add greeter user to required groups for graphics/input access
+usermod -a -G video greeter 2>/dev/null || true
+usermod -a -G input greeter 2>/dev/null || true
+usermod -a -G seat greeter 2>/dev/null || true
 
 if [ ! -f /etc/greetd/config.toml ]; then
     echo "Error: Failed to create greetd config file"
