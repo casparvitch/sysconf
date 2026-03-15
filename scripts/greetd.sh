@@ -40,6 +40,7 @@ systemctl mask getty@tty2.service
 if ! grep -q "console=tty1" /proc/cmdline 2>/dev/null; then
     echo "WARNING: Add 'console=tty1' to kernel parameters to keep boot logs on VT1"
     echo "Edit /etc/default/grub: GRUB_CMDLINE_LINUX_DEFAULT="... console=tty1""
+fi
 
 # Add greeter user to required groups for graphics/input access
 usermod -a -G video greeter 2>/dev/null || true
