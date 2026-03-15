@@ -23,7 +23,8 @@ mkdir -p /etc/greetd
 # Write greetd config
 cat > /etc/greetd/config.toml << 'EOF'
 [terminal]
-vt = 1
+vt = "next"
+switch = true
 
 [default_session]
 command = "tuigreet --time --cmd sway"
